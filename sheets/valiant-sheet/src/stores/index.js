@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import jp from 'jsonpath'
 import { useMetaStore } from '@/stores/metaStore.js'
 import { useSheetStore } from '@/stores/sheetStore.js'
+import { useAbilityScoreStore } from './abilityScoreStore'
 
 // Here you can set all default values for your sheet.
 // This is your blank slate, new character setup.
@@ -22,7 +23,8 @@ export const useAppStore = defineStore('app', () => {
   // List all the stores individually.
   const stores = {
     meta: useMetaStore(),
-    sheet: useSheetStore()
+    sheet: useSheetStore(),
+    abilityScores: useAbilityScoreStore()
   }
   const storeRegistry = Object.keys(stores)
 
