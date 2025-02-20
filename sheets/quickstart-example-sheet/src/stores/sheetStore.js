@@ -30,7 +30,7 @@ const addTrait = (traits) => {
   }
   traits.value.push(trait)
 }
-
+ 
 /*
 Removes a trait from the list of traits
  */

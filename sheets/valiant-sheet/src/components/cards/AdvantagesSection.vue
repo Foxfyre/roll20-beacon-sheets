@@ -40,7 +40,7 @@ export default {
     <div class="advantage_section">
         <div class="advantage_subsection" v-for="advantage in advantages" :key="name" >
             <div class="advantage_label">{{ advantage.name }}</div>
-            <div class="advantage_desc_dropdown">
+            <div class="advantage_desc_separator">
                 <div class="advantage_description">
                     {{ advantage.description }}
                 </div>
@@ -84,12 +84,19 @@ export default {
 
 .advantage_label {
     margin-bottom: 5px;
+    color: black;
+    font-weight: bold;
 }
 
-.advantage_desc_dropdown {
+.advantage_description {
+    color: black;
+}
+
+.advantage_desc_separator {
     border-bottom: black 1px solid;
     padding-bottom: 10px;
 }
+
 </style>
 
 <!--

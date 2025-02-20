@@ -53,7 +53,7 @@ export const useAbilityScoreStore = defineStore('abilityScores', () => {
   const CharismaCurrent = ref(0);
   const AuraCurrent = ref(0);
   const ThoughtCurrent = ref(0);
-
+ 
   // It can be very convenient to make a Getter/Setter computed prop like this to read/write data into store.
   // This will just read/write into the previously defined ability score fields.
   const abilityScores = computed({
