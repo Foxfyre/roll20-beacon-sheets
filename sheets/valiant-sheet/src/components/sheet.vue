@@ -6,6 +6,7 @@ import { useSheetStore } from '@/stores/sheetStore.js'
 import Abilities from '@/components/cards/AbilityScoreSection.vue';
 import Skills from '@/components/cards/SkillScoreSection.vue';
 import Advantages from '@/components/cards/AdvantagesSection.vue';
+import Complications from '@/components/cards/ComplicationSection.vue';
 
 // These stores should drive how to access the data in your sheet, and how to trigger actionable events.
 const appStore = useAppStore()
@@ -19,28 +20,13 @@ const sheet = useSheetStore()
 <template>
 
     <div class="card">
-        <Abilities/>
+        <Abilities />
     </div>
     <div class="card">
-        <Skills/>
+        <Skills />
     </div>
     <div class="card">
         <h2>Powers</h2>
-    </div>
-    <div class="card">
-        <h2>Offense</h2>
-    </div>
-    <div class="card">
-        <h2>Equip</h2>
-    </div>
-    <div class="card">
-        <h2>Defense</h2>
-    </div>
-    <div class="card">
-        <Advantages/>
-    </div>
-    <div class="card">
-        <h2>Complications</h2>
         <div class="subheader">
             <div class="subtitle">Skills - {{ sheet.traitsCount }}</div>
             <button class="button" @click="sheet.addTrait">Add</button>
@@ -54,6 +40,21 @@ const sheet = useSheetStore()
             </div>
         </div>
     </div>
+    <div class="card">
+        <h2>Offense</h2>
+    </div>
+    <div class="card">
+        <h2>Equip</h2>
+    </div>
+    <div class="card">
+        <h2>Defense</h2>
+    </div>
+    <div class="card">
+        <Advantages />
+    </div>
+    <div class="card">
+        <Complications />
+    </div>
 
 </template>
 
@@ -64,6 +65,7 @@ const sheet = useSheetStore()
     border-radius: 1rem;
     padding: 1rem;
     width: 90%;
+
     &:hover {
         background: rgba(14, 98, 107, 0.86);
     }
