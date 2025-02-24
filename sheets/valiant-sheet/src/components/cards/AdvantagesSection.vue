@@ -45,7 +45,6 @@ export default {
                     {{ advantage.description }}
                 </div>
             </div>
-
         </div>
     </div>
 
