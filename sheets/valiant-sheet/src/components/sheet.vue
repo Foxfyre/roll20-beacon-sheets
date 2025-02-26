@@ -9,6 +9,7 @@ import Advantages from '@/components/cards/AdvantagesSection.vue';
 import Complications from '@/components/cards/ComplicationSection.vue';
 import Offense from '@/components/cards/OffenseSection.vue';
 import Defense from '@/components/cards/DefenseSection.vue';
+import Powers from '@/components/cards/PowersSection.vue';
 
 // These stores should drive how to access the data in your sheet, and how to trigger actionable events.
 const appStore = useAppStore()
@@ -28,19 +29,7 @@ const sheet = useSheetStore()
         <Skills />
     </div>
     <div class="card">
-        <h2>Powers</h2>
-        <div class="subheader">
-            <div class="subtitle">Skills - {{ sheet.traitsCount }}</div>
-            <button class="button" @click="sheet.addTrait">Add</button>
-        </div>
-        <div class="traits">
-            <div class="trait-item" v-for="trait in sheet.traits" :key="trait._id">
-                <input v-model="trait.name" placeholder="Name" />
-                <input v-model="trait.description" placeholder="Description" />
-                <button class="button" @click="sheet.postTraitToChat(trait)">Chat</button>
-                <button class="button" @click="sheet.removeTrait(trait._id)">Remove</button>
-            </div>
-        </div>
+        <Powers />
     </div>
     <div class="card">
         <Offense />
