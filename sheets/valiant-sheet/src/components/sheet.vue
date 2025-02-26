@@ -8,6 +8,7 @@ import Skills from '@/components/cards/SkillScoreSection.vue';
 import Advantages from '@/components/cards/AdvantagesSection.vue';
 import Complications from '@/components/cards/ComplicationSection.vue';
 import Offense from '@/components/cards/OffenseSection.vue';
+import Defense from '@/components/cards/DefenseSection.vue';
 
 // These stores should drive how to access the data in your sheet, and how to trigger actionable events.
 const appStore = useAppStore()
@@ -48,7 +49,7 @@ const sheet = useSheetStore()
         <h2>Equip</h2>
     </div>
     <div class="card">
-        <h2>Defense</h2>
+        <Defense />
     </div>
     <div class="card">
         <Advantages />
