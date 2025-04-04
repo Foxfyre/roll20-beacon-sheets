@@ -6,7 +6,7 @@ const sheet = useSheetStore();
 const { abilityScores } = sheet;
 const scoreNames = Object.keys(abilityScores);
 </script>
-
+ 
 <template>
   <div class="ability-container">
     <div class="ability-score-section">

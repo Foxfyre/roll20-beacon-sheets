@@ -24,6 +24,7 @@ import { useSheetStore } from '@/stores/sheetStore.js';
 import { useAbilityScoreStore } from '@/stores/abilityScoreStore';
 const sheet = useSheetStore();
 const abilityScores = useAbilityScoreStore().abilityScores;
+const abilityTips = useAbilityScoreStore().abilityScoreTips;
 const scoreNames = Object.keys(abilityScores);
 </script>
 
@@ -33,20 +34,21 @@ const scoreNames = Object.keys(abilityScores);
             <span>Abilities</span>
         </div>
         <div class="ability_edit">
-            <button @click="toggleModal">Open Popup</button>
+            <button @click="toggleModal">
+                <i class="fa-solid fa-gear"></i>
+            </button>
 
-            <abilityModal :show="isModalVisible" @close="toggleModal">
-
-            </abilityModal>
+            <abilityModal :show="isModalVisible" @close="toggleModal"></abilityModal>
         </div>
     </div>
     <div class="ability_section">
         <div class="ability_subsection" v-for="name in scoreNames" :key="name" :score="name">
-            <div class="ability_subsection">
-                <div class="ability_label">{{ name }}</div>
-                <div class="ability_number">
-                    <div class="ability_value">{{ abilityScores[name].base }}</div>
-                </div>
+            <div class="ability-label"><span>{{ name }}</span></div>
+            <div class="ability_number">
+                {{ abilityScores[name].base }}
+            </div>
+            <div class="ability-tips">
+                <span>{{ abilityTips[name] }}</span>
             </div>
         </div>
     </div>
@@ -56,39 +58,44 @@ const scoreNames = Object.keys(abilityScores);
 <style lang="scss" scoped>
 .card_header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     height: 40px;
     text-align: center;
-    align-content: center;
-    background-color: #ef343f;
+    align-items: center;
+    background-color: #2b4d85;
 }
 
 .card_title {
-    flex-direction: column;
-    align-content: center;
-    justify-content:flex-start;
-    width: 50%;
-}
-
-.card_title > span {
-    text-transform:uppercase;
-    font-weight: bolder;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
     color: #ffffff;
+    flex-grow: 1;
 }
 
 .ability_edit {
-    flex-direction: column;
-    height: 100%;
-    align-content: center;
-    width: 50%;
+    position: relative;
+    right: 20px;
+}
+
+.ability_edit button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.ability_edit button:hover {
+    color: #a5a9e0;
 }
 
 .ability_section {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    align-items: center;
-    align-content: space-around;
+    display: flex;
+    align-items: stretch;
+    /* Make all columns the same height */
+    justify-content: space-around;
     color: #000000;
     font-weight: bold;
     text-transform: uppercase;
@@ -97,22 +104,47 @@ const scoreNames = Object.keys(abilityScores);
 
 .ability_subsection {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    flex-direction: column;
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    margin: 5px 0 0 0;
+    flex-grow: 1;
+    /* Make all subsections expand evenly */
+}
+
+.ability-label {
+    display: flex;
+    background-color: #2b4d85;
+    color: whitesmoke;
+    width: 95%;
+    justify-content: center;
+    font-size: 0.9em;
+    padding: 5px 0;
+}
+
+.ability-tips {
+    display: flex;
+    width: 95%;
+    justify-content: center;
+    font-size: 0.7em;
+    background-color: #a5a9e0;
+    margin-top: 1px;
+    flex-grow: 1;
+    /* Makes this section expand to fill empty space */
+    align-items: center;
+    /* Centers text vertically */
+    min-height: 50px;
+    /* Ensure uniform height across all sections */
 }
 
 .ability_number {
-    width: 30px;
-    height: 20px;
-    border: 1px black solid;
-    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    min-height: 30px;
+    padding: 5px 0;
     color: black;
-    margin-right: 15px;
-    text-align:center;
-    background-color: #fa9da3
+    background-color: #a5a9e0;
 }
 </style>

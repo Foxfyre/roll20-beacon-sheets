@@ -1,5 +1,7 @@
 <script setup>
 import { useMetaStore } from '@/stores/metaStore.js'
+import defaultAvatar from '@/assets/default-avatar.jpg';
+import Abilities from '@/components/cards/AbilityScoreSection.vue';
 const meta = useMetaStore()
 
 /*
@@ -14,14 +16,47 @@ const meta = useMetaStore()
 </script>
 
 <template>
-    <div class="container">
-        <div class="avatar1">Avatar</div>
-        <div class="character_details">
-            <div class="name">{{meta.name}}</div>
-            <div class="summary">Summary of stats</div>
-        </div>
-        <div class="character_power">PL/Hero Points</div>
+    <div class="character-header">
+        <div class="character-info">
+            <div class="name-container">
+                <input class="character-name" v-model="meta.name" placeholder="Character Name" />
+                <div class="power-level">
+                    <span>PL</span>
+                    <input class="pl-input" v-model="meta.power" placeholder="10" />
+                </div>
+            </div>
 
+            <div class="bio-container">
+                <div class="bio-item">
+                    <span>Real Name:</span>
+                    <input v-model="meta.realName" placeholder="Enter Real Name" />
+                </div>
+                <div class="bio-item">
+                    <span>Age:</span>
+                    <input v-model="meta.age" placeholder="Age" />
+                </div>
+                <div class="bio-item">
+                    <span>Hair:</span>
+                    <input v-model="meta.hair" placeholder="Hair Color" />
+                </div>
+                <div class="bio-item">
+                    <span>Occupation:</span>
+                    <input v-model="meta.occupation" placeholder="Occupation" />
+                </div>
+                <div class="bio-item">
+                    <span>Place Of Origin</span>
+                    <input v-model="meta.origin" placeholder="Place Of Origin" />
+                </div>
+            </div>
+
+            <div class="card">
+                <Abilities />
+            </div>
+        </div>
+
+        <div class="avatar-container">
+            <img :src="meta.avatar || defaultAvatar" alt="Character Avatar" class="avatar-image" />
+        </div>
     </div>
 
 </template>
@@ -30,70 +65,109 @@ const meta = useMetaStore()
 /*
 Avatar positioning and default styles
 */
-.container {
+.character-header {
     display: grid;
-    grid-template-columns: 20% 60% 20%;
-    grid-template-rows: 100%;
-    grid-gap: 10px;
-    background-color: blue;
-    margin: auto 30px;
-    padding: 0 20px;
-    justify-content: center;
+    grid-template-columns: 75% 25%;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
 }
 
-.avatar1 {
-    background-color: lightblue;
-    aspect-ratio: 1/1;
-    color: black;
-    margin: 10px;
+.character-header input::placeholder {
+    color: whitesmoke;
 }
 
-.character_details {
+.character-info {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    justify-content: center;
+    gap: 10px;
 }
 
-.name {
+.name-container {
     display: flex;
-    background-color: lightcoral;
-    height: 50%;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    background-color: #2b4d85;
+    padding: 10px;
+    border-radius: 5px;
 }
 
-.summary {
-    display: flex;
-    background-color: slateblue;
-    height: 25%;
-    align-items: center;
-    justify-content: center;
-}
-
-.character_power {
-    display: flex;
-    flex-direction: column;
-    background-color: seagreen;
-    margin: 10px;
-}
-
-.avatar {
-    justify-self: center;
-
-    img {
-        height: 10rem;
-        border-radius: 0.5rem;
-    }
-}
-
-input {
-    font-size: 1rem;
-    color: #ffffff;
-    background-color: #000000;
-    border-radius: 0.25rem;
+.character-name {
+    flex-grow: 1;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: none;
     border: none;
-    height: 2rem;
-    padding: 0.25rem;
+    color: white;
+}
+
+.power-level {
+    display: flex;
+    align-items: center;
+    background-color: #4d6fa7;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.power-level span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.pl-input {
+    width: 40px;
+    text-align: center;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.bio-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.bio-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.bio-item span {
+    font-weight: bold;
+    color: black;
+}
+
+.bio-item input {
+    flex-grow: 1;
+    background: none;
+    border: none;
+    color: black;
+    font-size: 1rem;
+}
+
+.bio-item input::placeholder {
+    color: black;
+}
+
+/* Avatar Section */
+.avatar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-image {
+    width: 90%;
+    height: 90%;
+    border-radius: 5px;
+    border: 2px solid white;
 }
 </style>

@@ -10,6 +10,7 @@ import Complications from '@/components/cards/ComplicationSection.vue';
 import Offense from '@/components/cards/OffenseSection.vue';
 import Defense from '@/components/cards/DefenseSection.vue';
 import Powers from '@/components/cards/PowersSection.vue';
+import Gear from '@/components/cards/GearSection.vue';
 
 // These stores should drive how to access the data in your sheet, and how to trigger actionable events.
 const appStore = useAppStore()
@@ -21,45 +22,69 @@ const sheet = useSheetStore()
 </script>
 
 <template>
+    <div class="row">
+        <div class="card">
+            <Skills />
+        </div>
+        <div class="card">
+            <Advantages />
+        </div>
+    </div>
 
-    <div class="card">
-        <Abilities />
+
+    <div class="row">
+        <div class="powers-equipment-column">
+            <div class="card powers">
+                <Powers />
+            </div>
+            <div class="card gear">
+                <Gear />
+            </div>
+        </div>
+        <div class="card complications">
+            <Complications />
+        </div>
     </div>
-    <div class="card">
-        <Skills />
-    </div>
-    <div class="card">
-        <Powers />
-    </div>
-    <div class="card">
-        <Offense />
-    </div>
-    <div class="card">
-        <h2>Equip</h2>
-    </div>
-    <div class="card">
-        <Defense />
-    </div>
-    <div class="card">
-        <Advantages />
-    </div>
-    <div class="card">
-        <Complications />
+
+    <div class="row">
+        <div class="card">
+            <Defense />
+        </div>
+        <div class="card">
+            <Offense />
+        </div>
     </div>
 
 </template>
 
 <style scoped lang="scss">
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
 .card {
-    display: grid;
-    gap: 0.5rem;
     border-radius: 1rem;
     padding: 1rem;
-    width: 90%;
+    width: 100%;
+    box-sizing: border-box;
 
     &:hover {
         background: rgba(14, 98, 107, 0.86);
     }
+}
+
+.powers-equipment-column {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.complications {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    width: 30%;
 }
 
 /*
@@ -121,18 +146,6 @@ input {
     &:focus {
         outline-color: #ffffff;
         outline-style: groove;
-    }
-}
-
-/*
-Avatar positioning and default styles
-*/
-.avatar {
-    justify-self: center;
-
-    img {
-        height: 10rem;
-        border-radius: 0.5rem;
     }
 }
 

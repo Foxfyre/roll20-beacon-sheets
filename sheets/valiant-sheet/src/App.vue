@@ -5,6 +5,7 @@ import { useSheetStore } from '@/stores/sheetStore.js'
 
 import Header from '@/components/header.vue';
 import Sheet from '@/components/sheet.vue';
+import Footer from '@/components/footer.vue';
 
 // These stores should drive how to access the data in your sheet, and how to trigger actionable events.
 const appStore = useAppStore()
@@ -22,30 +23,28 @@ const sheet = useSheetStore()
   <div class="sheet">
     <Sheet/>
   </div>
+
+  <div class="footer">
+    <Footer/>
+  </div>
 </template>
 
 <style scoped lang="scss">
 /*
 The quickstart header. Replace this with a logo, your sheet title, or remove this.
 */
-.header {
-  padding-top: 1rem;
-  background-color: green;
-  margin-bottom:50px;
-}
 
 /*
 This is a boilerplate layout that uses grid to help you get started on your sheet.
 Customize this layout by modifying the template columns and rows you will need for each section.
 */
 .sheet {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto;
-  width: 90%;
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 98%;
   padding-top: 2rem;
-  padding: 20px;
+  padding: 0px;
   margin: 0 auto;
 }
 </style>

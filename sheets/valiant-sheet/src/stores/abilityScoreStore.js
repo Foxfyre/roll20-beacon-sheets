@@ -26,6 +26,17 @@ export const useAbilityScoreStore = defineStore('abilityScores', () => {
         Presence: 'pre'
     };
 
+    const abilityScoreTips = {
+        Strength: 'Close Damage',
+        Fighting: 'Close Attack Checks, Parry Defense',
+        Stamina: 'Toughness Defense, Fortitude Defense',
+        Intellect: 'Intelligence Checks',
+        Agility: 'Dodge Defense, Initiative Bonus',
+        Awareness: 'Will Defense',
+        Dexterity: 'Ranged Attack Checks',
+        Presence: 'Presence Checks'
+    };
+
     const dehydrate = () => {
         return Object.keys(abilityScores).reduce((result, key) => {
             result[key] = {
@@ -48,6 +59,7 @@ export const useAbilityScoreStore = defineStore('abilityScores', () => {
     return {
         abilityScores,
         abilityShortCodes,
+        abilityScoreTips,
         dehydrate,
         hydrate
     };

@@ -1,8 +1,9 @@
-import './assets/main.css'
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import { createRelay } from './relay/relay'
-import App from './App.vue'
+import './assets/main.css';
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import { createRelay } from './relay/relay';
+import App from './App.vue';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 /*
 Welcome! If you are new to vue, this is the file that will render the vue app. This vue app is a quickstart guide,

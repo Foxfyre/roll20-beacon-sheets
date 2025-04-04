@@ -36,18 +36,24 @@ const scoreNames = computed(() => Object.keys(skillScores).filter(name => !skill
         <div class="card_title">
             <span>Skills</span>
         </div>
-        <div class="ability_edit">
-            <button @click="toggleModal">Open Popup</button>
+        <div class="skill_edit">
+            <button @click="toggleModal">
+                <i class="fa-solid fa-gear"></i>
+            </button>
             <skillModal :show="isModalVisible" @close="toggleModal"></skillModal>
         </div>
     </div>
 
-    <div class="ability_section">
-        <div class="ability_subsection" v-for="name in scoreNames" :key="name" :score="name">
-            <div class="ability_label">{{ name }}</div>
-            <div class="ability_number">
-                <div class="ability_value">{{ skillScores[name].current }}</div>
-            </div>
+    <div class="skill_section">
+        <div class="skill_subsection_header">
+            <div class="skill_header_name">Skill Name</div>
+            <div class="skill_header_rank">Ranks</div>
+            <div class="skill_header_bonus">Bonus</div>
+        </div>
+        <div class="skill_subsection" v-for="name in scoreNames" :key="name" :score="name">
+            <div class="skill_label">{{ skillScores[name].label }}</div>
+            <div class="skill_modifier">{{ skillScores[name].base }}</div>
+            <div class="skill_number">{{ skillScores[name].current }}</div>
         </div>
     </div>
 
@@ -56,46 +62,76 @@ const scoreNames = computed(() => Object.keys(skillScores).filter(name => !skill
 <style lang="scss" scoped>
 .card_header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     height: 40px;
     text-align: center;
-    align-content: center;
-    background-color: #ef343f;
+    align-items: center;
+    background-color: #2b4d85;
 }
 
 .card_title {
-    flex-direction: column;
-    align-content: center;
-    justify-content: flex-start;
-    width: 50%;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff;
+    flex-grow: 1;
 }
 
-.card_title>span {
-    text-transform: uppercase;
-    font-weight: bolder;
+.skill_edit {
+    position: relative;
+    right: 20px;
+}
+
+.skill_edit button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
     color: #ffffff;
 }
 
-.ability_edit {
-    flex-direction: column;
-    height: 100%;
-    align-content: center;
-    width: 50%;
+.skill_edit button:hover {
+    color: #a5a9e0;
 }
 
-.ability_section {
-    display: grid;
-    grid-template-columns: 50% 50%;
+.skill_section {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     align-content: space-around;
     color: #000000;
     font-weight: bold;
     text-transform: uppercase;
-    padding: 10px;
+    background-color: #a5a9e0;
+    padding: 0 0 20px 0;
 }
 
-.ability_subsection {
+.skill_subsection_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #f2f3ff;
+}
+
+.skill_header_name {
+    width: 60%;
+}
+
+.skill_header_rank {
+    display: flex;
+    justify-content: center;
+    width: 20%;
+}
+
+.skill_header_bonus {
+    display: flex;
+    justify-content: center;
+    width: 20%;
+}
+
+.skill_subsection {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -103,16 +139,26 @@ const scoreNames = computed(() => Object.keys(skillScores).filter(name => !skill
     align-items: center;
     justify-content: space-between;
     margin: 5px 0 0 0;
+    background-color: #e8e9ff;
 }
 
-.ability_number {
-    width: 30px;
+.skill_label {
+    display: flex;
+    justify-content: flex-start;
+    width: 60%;
+}
+
+.skill_modifier {
+    display: flex;
+    justify-content: center;
+    width: 20%;
+}
+
+.skill_number {
+    display: flex;
+    width: 20%;
     height: 20px;
-    border: 1px black solid;
-    border-radius: 5px;
-    color: black;
-    margin-right: 15px;
     text-align: center;
-    background-color: #fa9da3
+    justify-content: center;
 }
 </style>
