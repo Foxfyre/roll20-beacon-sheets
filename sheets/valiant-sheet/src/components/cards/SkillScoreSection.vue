@@ -36,7 +36,7 @@ const scoreNames = computed(() => Object.keys(skillScores).filter(name => !skill
         <div class="card_title">
             <span>Skills</span>
         </div>
-        <div class="skill_edit">
+        <div class="edit">
             <button @click="toggleModal">
                 <i class="fa-solid fa-gear"></i>
             </button>
@@ -44,18 +44,18 @@ const scoreNames = computed(() => Object.keys(skillScores).filter(name => !skill
         </div>
     </div>
 
-    <div class="skill_section">
-        <div class="skill_subsection_header">
+    <div class="section">
+        <div class="subsection_header">
             <div class="skill_header_name">Skill Name</div>
             <div class="skill_header_rank">Ranks</div>
             <div class="skill_header_bonus">Bonus</div>
         </div>
-        <div class="skill_subsection" v-for="name in scoreNames" :key="name" :score="name">
+        <div class="subsection" v-for="name in scoreNames" :key="name" :score="name">
             <div class="skill_label">{{ skillScores[name].label }}</div>
             <div class="skill_modifier">{{ skillScores[name].base }}</div>
             <div class="skill_number">{{ skillScores[name].current }}</div>
         </div>
-    </div>
+    </div> 
 
 </template>
 
@@ -78,12 +78,12 @@ const scoreNames = computed(() => Object.keys(skillScores).filter(name => !skill
     flex-grow: 1;
 }
 
-.skill_edit {
+.edit {
     position: relative;
     right: 20px;
 }
 
-.skill_edit button {
+.edit button {
     background: none;
     border: none;
     cursor: pointer;
@@ -91,11 +91,11 @@ const scoreNames = computed(() => Object.keys(skillScores).filter(name => !skill
     color: #ffffff;
 }
 
-.skill_edit button:hover {
+.edit button:hover {
     color: #a5a9e0;
 }
 
-.skill_section {
+.section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -107,7 +107,7 @@ const scoreNames = computed(() => Object.keys(skillScores).filter(name => !skill
     padding: 0 0 20px 0;
 }
 
-.skill_subsection_header {
+.subsection_header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -131,7 +131,7 @@ const scoreNames = computed(() => Object.keys(skillScores).filter(name => !skill
     width: 20%;
 }
 
-.skill_subsection {
+.subsection {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;

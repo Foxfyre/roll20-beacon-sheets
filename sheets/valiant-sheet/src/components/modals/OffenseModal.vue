@@ -37,7 +37,9 @@ const offenses = offenseStore.offenses;
                 <div class="offense-item" v-for="offense in offenses" :key="offense.id">
                     <input v-model="offense.name" placeholder="Name" />
                     <input v-model="offense.bonus" type="number" placeholder="Bonus" />
-                    <input v-model="offense.details" placeholder="Details" />
+                    <input v-model="offense.target" type="text" placeholder="Target" />
+                    <input v-model="offense.effect" type="text" placeholder="Effect" />
+                    <input v-model="offense.save" type="text" placeholder="Save" />
                     <button class="button" @click="offenseStore.removeOffense(offense.id)">Remove</button>
                 </div>
             </div>
@@ -68,7 +70,7 @@ const offenses = offenseStore.offenses;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
+    max-width: 600px;
     width: 100%;
     position: relative;
 }
@@ -96,6 +98,7 @@ const offenses = offenseStore.offenses;
     align-items: center;
     gap: 10px;
     margin-top: 10px;
+    flex-wrap: wrap;
 }
 
 input {

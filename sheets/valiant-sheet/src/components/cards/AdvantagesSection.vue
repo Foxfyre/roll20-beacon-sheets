@@ -32,18 +32,24 @@ export default {
             <span>Advantages</span>
         </div>
         <div class="edit">
-            <button @click="toggleModal">Open Popup</button>
+            <button @click="toggleModal">
+                <i class="fa-solid fa-gear"></i>
+            </button>
             <advantageModal :show="isModalVisible" @close="toggleModal"></advantageModal>
         </div>
     </div>
 
-    <div class="advantage_section">
-        <div class="advantage_subsection" v-for="advantage in advantages" :key="name" >
-            <div class="advantage_label">{{ advantage.name }}</div>
-            <div class="advantage_desc_separator">
-                <div class="advantage_description">
-                    {{ advantage.description }}
-                </div>
+    <div class="section">
+        <div class="subsection_header">
+            <div class="header_name">Advantage</div>
+            <div class="header_detail">Details</div>
+        </div>
+        <div class="subsection" v-for="advantage in advantages" :key="name">
+            <div class="label">
+                {{ advantage.name }}
+            </div>
+            <div class="description">
+                {{ advantage.description }}
             </div>
         </div>
     </div>
@@ -53,49 +59,93 @@ export default {
 <style lang="scss" scoped>
 .card_header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     height: 40px;
     text-align: center;
-    align-content: center;
-    background-color: #ef343f;
+    align-items: center;
+    background-color: #2b4d85;
 }
 
 .card_title {
-    flex-direction: column;
-    align-content: center;
-    justify-content: flex-start;
-    width: 50%;
-}
-
-.card_title>span {
+    text-align: center;
+    font-weight: bold;
     text-transform: uppercase;
-    font-weight: bolder;
     color: #ffffff;
+    flex-grow: 1;
 }
 
 .edit {
-    flex-direction: column;
-    height: 100%;
-    align-content: center;
-    width: 50%;
+    position: relative;
+    right: 20px;
 }
 
-.advantage_label {
-    margin-bottom: 5px;
+.edit button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.edit button:hover {
+    color: #a5a9e0;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: space-around;
+    color: #000000;
+    background-color: #a5a9e0;
+    padding: 0 0 20px 0;
+}
+
+.subsection_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #f2f3ff;
+    font-weight: bold;
+}
+
+.header_name {
+    width: 30%;
+}
+
+.header_detail {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+}
+
+.subsection {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0 0 0;
+    background-color: #e8e9ff;
+}
+
+.label {
+    display: flex;
+    justify-content: flex-start;
+    width: 30%;
     color: black;
     font-weight: bold;
 }
 
-.advantage_description {
+.description {
+    display: flex;
+    justify-content: flex-start;
     color: black;
+    padding: 5px;
 }
-
-.advantage_desc_separator {
-    border-bottom: black 1px solid;
-    padding-bottom: 10px;
-}
-
 </style>
 
 <!--

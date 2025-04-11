@@ -32,12 +32,14 @@ export default {
             <span>Complications</span>
         </div>
         <div class="edit">
-            <button @click="toggleModal">Open Popup</button>
+            <button @click="toggleModal">
+                <i class="fa-solid fa-gear"></i>
+            </button>
             <complicationModal :show="isModalVisible" @close="toggleModal"></complicationModal>
         </div>
     </div>
 
-    <div class="complication_section">
+    <div class="complication-section">
         <div class="complication_subsection" v-for="complication in complications" :key="name" >
             <div class="complication_label"> {{ complication.name }}</div>
             <div class="complication_desc_separator">
@@ -53,19 +55,20 @@ export default {
 <style lang="scss" scoped>
 .card_header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     height: 40px;
     text-align: center;
-    align-content: center;
-    background-color: #ef343f;
+    align-items: center;
+    background-color: #2b4d85;
 }
 
 .card_title {
-    flex-direction: column;
-    align-content: center;
-    justify-content: flex-start;
-    width: 50%;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff;
+    flex-grow: 1;
 }
 
 .card_title>span {
@@ -75,10 +78,24 @@ export default {
 }
 
 .edit {
-    flex-direction: column;
-    height: 100%;
-    align-content: center;
-    width: 50%;
+    position: relative;
+    right: 20px;
+}
+
+.edit button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.edit button:hover {
+    color: #a5a9e0;
+}
+
+.complication-section {
+    padding: 5px 10px;
 }
 
 .complication_label {
@@ -92,7 +109,6 @@ export default {
 }
 
 .complication_desc_separator {
-    border-bottom: black 1px solid;
     padding-bottom: 10px;
 }
 </style>

@@ -33,7 +33,9 @@ export default {
             <span>Defense</span>
         </div>
         <div class="edit">
-            <button @click="toggleModal">Open Popup</button>
+            <button @click="toggleModal">
+                <i class="fa-solid fa-gear"></i>
+            </button>
             <DefenseModal :show="isModalVisible" @close="toggleModal"></DefenseModal>
         </div>
     </div>
@@ -53,64 +55,70 @@ export default {
 <style lang="scss" scoped>
 .card_header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     height: 40px;
     text-align: center;
-    align-content: center;
-    background-color: #ef343f;
+    align-items: center;
+    background-color: #2b4d85;
 }
 
 .card_title {
-    flex-direction: column;
-    align-content: center;
-    justify-content: flex-start;
-    width: 50%;
-}
-
-.card_title>span {
+    text-align: center;
+    font-weight: bold;
     text-transform: uppercase;
-    font-weight: bolder;
     color: #ffffff;
+    flex-grow: 1;
 }
 
 .edit {
-    flex-direction: column;
-    height: 100%;
-    align-content: center;
-    width: 50%;
+    position: relative;
+    right: 20px;
+}
+
+.edit button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.edit button:hover {
+    color: #a5a9e0;
 }
 
 .defense_section {
-    margin-top: 10px;
+    margin-top: 5px;
     color: black;
 }
 
 .defense_list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .defense_item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #ffffff;
-    border: 1px solid #f04986;
-    padding: 5px;
-    border-radius: 5px;
+    background-color: #ede7f6;
+    margin-bottom: 5px;
 }
 
 .defense_name {
+    height: 100%;
+    width: 35%;
+    padding: 10px;
+    background-color: #2b4d85;
+    color: whitesmoke;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 .defense_value {
-    background-color: #fa9da3;
     padding: 5px;
     font-weight: bold;
-    border-radius: 5px;
     text-align: center;
     width: 50px;
 }

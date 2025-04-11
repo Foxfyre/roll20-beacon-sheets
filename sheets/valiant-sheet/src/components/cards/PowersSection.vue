@@ -33,7 +33,9 @@ export default {
             <span>Powers</span>
         </div>
         <div class="edit">
-            <button @click="toggleModal">Edit</button>
+            <button @click="toggleModal">
+                <i class="fa-solid fa-gear"></i>
+            </button>
             <PowersModal :show="isModalVisible" @close="toggleModal"></PowersModal>
         </div>
     </div>
@@ -41,12 +43,16 @@ export default {
     <div class="powers_section">
         <div class="power_list">
             <div class="power_item" v-for="power in powers" :key="power.id">
-                <div class="power_name">{{ power.name }}</div>
-                <div class="power_cost">{{ power.cost }} PP</div>
+                <div class="power-group-header">
+                    <div class="power_name">{{ power.name }}</div>
+                    <div class="power_cost">{{ power.cost }} PP</div>
+                </div>
                 <div class="power_effects">
                     <div v-for="effect in power.effects" :key="effect.id" class="effect_item">
                         <span class="effect_name">{{ effect.name }}</span>
+                        <span> -</span>
                         <span class="effect_rank">Rank {{ effect.rank }}</span>
+                        <span> - </span>
                         <span class="effect_details">{{ effect.details }}</span>
                     </div>
                 </div>
@@ -58,19 +64,20 @@ export default {
 <style lang="scss" scoped>
 .card_header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     height: 40px;
     text-align: center;
-    align-content: center;
-    background-color: #8B5CF6;
+    align-items: center;
+    background-color: #2b4d85;
 }
 
 .card_title {
-    flex-direction: column;
-    align-content: center;
-    justify-content: flex-start;
-    width: 50%;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff;
+    flex-grow: 1;
 }
 
 .card_title>span {
@@ -80,10 +87,20 @@ export default {
 }
 
 .edit {
-    flex-direction: column;
-    height: 100%;
-    align-content: center;
-    width: 50%;
+    position: relative;
+    right: 20px;
+}
+
+.edit button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.edit button:hover {
+    color: #a5a9e0;
 }
 
 .powers_section {
@@ -104,6 +121,12 @@ export default {
     border-radius: 5px;
 }
 
+.power-group-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .power_name {
     font-weight: bold;
     font-size: 1.1em;
@@ -116,7 +139,7 @@ export default {
     border-radius: 5px;
     text-align: center;
     width: 50px;
-    margin-top: 5px;
+    margin-left: 10px;
 }
 
 .power_effects {

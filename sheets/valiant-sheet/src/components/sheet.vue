@@ -47,10 +47,10 @@ const sheet = useSheetStore()
     </div>
 
     <div class="row">
-        <div class="card">
+        <div class="card defense">
             <Defense />
         </div>
-        <div class="card">
+        <div class="card offense">
             <Offense />
         </div>
     </div>
@@ -85,6 +85,14 @@ const sheet = useSheetStore()
     flex-direction: column;
     justify-content: stretch;
     width: 30%;
+}
+
+.defense {
+    width: 30%;
+}
+
+.offense {
+    width: 70%;
 }
 
 /*

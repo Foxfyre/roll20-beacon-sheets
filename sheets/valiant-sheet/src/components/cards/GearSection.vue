@@ -33,7 +33,9 @@ export default {
             <span>Equipment</span>
         </div>
         <div class="edit">
-            <button @click="toggleModal">Edit</button>
+            <button @click="toggleModal">
+                <i class="fa-solid fa-gear"></i>
+            </button>
             <GearModal :show="isModalVisible" @close="toggleModal"></GearModal>
         </div>
     </div>
@@ -58,19 +60,20 @@ export default {
 <style lang="scss" scoped>
 .card_header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     height: 40px;
     text-align: center;
-    align-content: center;
-    background-color: #3a567b;
+    align-items: center;
+    background-color: #2b4d85;
 }
 
 .card_title {
-    flex-direction: column;
-    align-content: center;
-    justify-content: flex-start;
-    width: 50%;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff;
+    flex-grow: 1;
 }
 
 .card_title>span {
@@ -80,10 +83,20 @@ export default {
 }
 
 .edit {
-    flex-direction: column;
-    height: 100%;
-    align-content: center;
-    width: 50%;
+    position: relative;
+    right: 20px;
+}
+
+.edit button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.edit button:hover {
+    color: #a5a9e0;
 }
 
 .gear_section {
@@ -121,10 +134,13 @@ export default {
 }
 
 .gear_attributes {
+    display: flex;
+    flex-direction: row;
     margin-top: 5px;
 }
 
 .gear_attribute {
     margin-top: 3px;
+    padding-left: 10px;
 }
 </style>
