@@ -25,6 +25,7 @@ import { useAbilityScoreStore } from '@/stores/abilityScoreStore';
 const sheet = useSheetStore();
 const abilityScores = useAbilityScoreStore().abilityScores;
 const abilityTips = useAbilityScoreStore().abilityScoreTips;
+const abilityShortNames = useAbilityScoreStore().abilityShortCodes;
 const scoreNames = Object.keys(abilityScores);
 </script>
 
@@ -43,12 +44,11 @@ const scoreNames = Object.keys(abilityScores);
     </div>
     <div class="ability_section">
         <div class="ability_subsection" v-for="name in scoreNames" :key="name" :score="name">
-            <div class="ability-label"><span>{{ name }}</span></div>
+            <div class="ability-label" :data-title="name" :data-desc="abilityTips[name]">
+                <span>{{ abilityShortNames[name] }}</span>
+            </div>
             <div class="ability_number">
                 {{ abilityScores[name].base }}
-            </div>
-            <div class="ability-tips">
-                <span>{{ abilityTips[name] }}</span>
             </div>
         </div>
     </div>
@@ -94,12 +94,11 @@ const scoreNames = Object.keys(abilityScores);
 .ability_section {
     display: flex;
     align-items: stretch;
-    /* Make all columns the same height */
     justify-content: space-around;
     color: #000000;
     font-weight: bold;
     text-transform: uppercase;
-    padding: 10px;
+    margin-top: 5px;
 }
 
 .ability_subsection {
@@ -120,6 +119,43 @@ const scoreNames = Object.keys(abilityScores);
     justify-content: center;
     font-size: 0.9em;
     padding: 5px 0;
+    position: relative;
+    cursor: pointer;
+}
+
+.ability-label:hover::after {
+    content: attr(data-title) ' - ' attr(data-desc);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 0.8em;
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+}
+
+.ability-label::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 0.8em;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
 }
 
 .ability-tips {

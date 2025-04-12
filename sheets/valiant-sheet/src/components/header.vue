@@ -4,6 +4,17 @@ import defaultAvatar from '@/assets/default-avatar.jpg';
 import Abilities from '@/components/cards/AbilityScoreSection.vue';
 const meta = useMetaStore()
 
+const onAvatarChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            meta.avatar = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
 /*
         <div class="avatar">
             <img :src="meta.avatar" alt="Character Avatar" />
@@ -28,23 +39,23 @@ const meta = useMetaStore()
 
             <div class="bio-container">
                 <div class="bio-item">
-                    <span>Real Name:</span>
+                    <span>Real Name: </span>
                     <input v-model="meta.realName" placeholder="Enter Real Name" />
                 </div>
                 <div class="bio-item">
-                    <span>Age:</span>
+                    <span>Age: </span>
                     <input v-model="meta.age" placeholder="Age" />
                 </div>
                 <div class="bio-item">
-                    <span>Hair:</span>
+                    <span>Hair: </span>
                     <input v-model="meta.hair" placeholder="Hair Color" />
                 </div>
                 <div class="bio-item">
-                    <span>Occupation:</span>
+                    <span>Occupation: </span>
                     <input v-model="meta.occupation" placeholder="Occupation" />
                 </div>
                 <div class="bio-item">
-                    <span>Place Of Origin</span>
+                    <span>Origin: </span>
                     <input v-model="meta.origin" placeholder="Place Of Origin" />
                 </div>
             </div>
@@ -56,6 +67,7 @@ const meta = useMetaStore()
 
         <div class="avatar-container">
             <img :src="meta.avatar || defaultAvatar" alt="Character Avatar" class="avatar-image" />
+            <input type="file" @change="onAvatarChange" class="avatar-input"/>
         </div>
     </div>
 
@@ -68,9 +80,9 @@ Avatar positioning and default styles
 .character-header {
     display: grid;
     grid-template-columns: 75% 25%;
-    align-items: center;
     padding: 10px 20px;
     border-radius: 10px;
+    min-width: 850px;
     color: white;
 }
 
@@ -81,6 +93,7 @@ Avatar positioning and default styles
 .character-info {
     display: flex;
     flex-direction: column;
+    min-width: 600px;
     gap: 10px;
 }
 
@@ -126,26 +139,40 @@ Avatar positioning and default styles
     color: white;
 }
 
+.bio-container,
+.bio-item,
+.bio-item input {
+    box-sizing: border-box;
+}
+
 .bio-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     padding: 10px;
     border-radius: 5px;
+    width: 100%;
 }
 
 .bio-item {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 5px;
+    height: 25px;
+    width: 100%;
 }
 
 .bio-item span {
+    width: 40%;
     font-weight: bold;
     color: black;
+    flex-wrap: nowrap;
 }
 
 .bio-item input {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
     flex-grow: 1;
     background: none;
     border: none;
@@ -155,13 +182,17 @@ Avatar positioning and default styles
 
 .bio-item input::placeholder {
     color: black;
+    align-self: center;
 }
 
 /* Avatar Section */
 .avatar-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-self: start;
+    position: relative;
 }
 
 .avatar-image {
@@ -169,5 +200,17 @@ Avatar positioning and default styles
     height: 90%;
     border-radius: 5px;
     border: 2px solid white;
+    cursor: pointer;
+}
+
+.avatar-input {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    cursor: pointer;
+    width: 90%;
+    height: 90%;
 }
 </style>
