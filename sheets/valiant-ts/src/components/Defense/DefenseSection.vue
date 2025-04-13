@@ -1,6 +1,6 @@
 <script setup>
-import { useSheetStore } from '@/stores/sheetStore.js';
-import { useDefenseStore } from '@/stores/DefenseStore.js';
+import { useSheetStore } from '@/stores/sheetStore';
+import { useDefenseStore } from '@/stores/DefenseStore';
 import DefenseModal from './DefenseModal.vue';
 
 const sheet = useSheetStore();
