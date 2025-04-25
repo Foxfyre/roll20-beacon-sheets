@@ -20,7 +20,7 @@ import { useSheetStore } from '@/stores/sheetStore';
 import { useSkillStore } from '@/stores/skillStore';
 import { useAbilityScoreStore } from '@/stores/abilityScoreStore';
 const sheet = useSheetStore();
-const skillScores = useSkillStore().skillScores;
+const skillScores = useSkillStore().skills;
 const abilityScores = useAbilityScoreStore().abilityScores;
 const scoreNames = Object.keys(skillScores);
 
