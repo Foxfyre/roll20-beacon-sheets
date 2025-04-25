@@ -1,14 +1,13 @@
 <script setup>
-import { useExampleSheetStore } from './sheet/stores/indexOld';
+import { useAppStore } from '@/stores/index';
 
-const store = useExampleSheetStore();
+const store = useAppStore();
 const campaignId = store.meta.campaignId;
 </script>
 
 <template>
   <div class="examplesheet">
     <div class="header section">
-      <div class="section__header">This is the Header</div>
       <div class="section__body tabs">
         <router-link to="/sheet">Sheet Tab</router-link>
         <router-link to="/settings">Settings Tab</router-link>
@@ -20,7 +19,6 @@ const campaignId = store.meta.campaignId;
         <component :is="Component" />
       </transition>
     </router-view>
-    <div class="footer section section__header">This is the Footer</div>
   </div>
 </template>
 
@@ -48,7 +46,6 @@ const campaignId = store.meta.campaignId;
         color: var(--examplesheet-primary);
         font-weight: 600;
         text-decoration: underline;
-        border-color: var(--examplesheet-primary);
       }
     }
   }
