@@ -27,8 +27,9 @@ import { useAbilityScoreStore } from '@/stores/abilityScoreStore';
 import { computed } from 'vue';
 const sheet = useSheetStore();
 const abilityScores = useAbilityScoreStore().abilityScores;
-const skillScores = useSkillStore().skillScores;
-const scoreNames = computed(() => Object.keys(skillScores).filter(name => !skillScores[name].isTrained || (skillScores[name].isTrained && skillScores[name].base > 0)));
+const skills = useSkillStore().skills;
+console.log(useSkillStore().skills);
+const scoreNames = computed(() => Object.keys(skills).filter(name => !skills[name].isTrained || (skills[name].isTrained && skills[name].base > 0)));
 </script>
 
 <template>
@@ -51,9 +52,9 @@ const scoreNames = computed(() => Object.keys(skillScores).filter(name => !skill
             <div class="skill_header_bonus">Bonus</div>
         </div>
         <div class="subsection" v-for="name in scoreNames" :key="name" :score="name">
-            <div class="skill_label">{{ skillScores[name].label }}</div>
-            <div class="skill_modifier">{{ skillScores[name].base }}</div>
-            <div class="skill_number">{{ skillScores[name].current }}</div>
+            <div class="skill_label">{{ skills[name].label }}</div>
+            <div class="skill_modifier">{{ skills[name].base }}</div>
+            <div class="skill_number">{{ skills[name].current }}</div>
         </div>
     </div> 
 
