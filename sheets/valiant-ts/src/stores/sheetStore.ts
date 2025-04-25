@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import { arrayToObject, objectToArray } from '@/utility/objectify'
-import { dispatchRef, initValues } from '@/relay/relay.js'
+import { dispatchRef, initValues } from '@/relay/relay'
 import { createRollTemplate } from '@/rolltemplates/rolltemplates'
 
 /*
