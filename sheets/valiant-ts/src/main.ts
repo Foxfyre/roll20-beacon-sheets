@@ -9,6 +9,8 @@ import './sheet/scss/index.scss';
 
 import { createRelay } from './relay/relay';
 
+import '@fortawesome/fontawesome-free/css/all.css';
+
 // @ts-ignore
 const env = import.meta.env.MODE || '';
 // Determines if the offline mode dev relay should be used
