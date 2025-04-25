@@ -16,13 +16,13 @@
 </template>
 
 <script setup>
-import { useExampleSheetStore } from '@/sheet/stores/indexOld';
+import { useAppStore } from '@/stores/index';
 import { useMetaStore } from '@/stores/metaStore';
 import { useSettingsStore } from '@/sheet/stores/settings/settingsStore';
 import router from '@/router';
 import { computed } from 'vue';
 
-const store = useExampleSheetStore();
+const store = useAppStore();
 const meta = useMetaStore();
 const settings = useSettingsStore();
 
