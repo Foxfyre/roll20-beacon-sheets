@@ -15,6 +15,8 @@ const onAvatarChange = (event) => {
     }
 };
 
+console.log(defaultAvatar);
+
 </script>
 
 <template>
@@ -58,7 +60,7 @@ const onAvatarChange = (event) => {
 
         <div class="avatar-container">
             <img :src="meta.avatar || defaultAvatar" alt="Character Avatar" class="avatar-image" />
-            <input type="file" @change="onAvatarChange" class="avatar-input"/>
+            <input type="file" @change="onAvatarChange" class="avatar-input" />
         </div>
     </div>
 

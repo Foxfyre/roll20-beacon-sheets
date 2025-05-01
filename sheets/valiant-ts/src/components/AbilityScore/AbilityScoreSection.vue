@@ -21,9 +21,12 @@ export default {
 
 <script setup>
 import { useSheetStore } from '@/stores/sheetStore';
+import { useCharacterStore } from '@/sheet/stores/character/characterStore';
 import { useAbilityScoreStore } from '@/stores/abilityScoreStore';
 const sheet = useSheetStore();
-;
+const character = useCharacterStore();
+const abilityScoreStore = useAbilityScoreStore();
+
 const abilityScores = useAbilityScoreStore().abilityScores;
 const abilityTips = useAbilityScoreStore().abilityScoreTips;
 const abilityShortNames = useAbilityScoreStore().abilityShortCodes;
@@ -45,13 +48,15 @@ console.log(scoreNames);
         </div>
     </div>
     <div class="ability_section">
-        <div class="ability_subsection" v-for="name in scoreNames" :key="name" :score="name">
+        <div class="ability_subsection" v-for="name in Object.keys(abilityScores)" :key="name">
             <div class="ability-label" :data-title="name" :data-desc="abilityTips[name]">
                 <span>{{ abilityShortNames[name] }}</span>
             </div>
-            <div class="ability_number">
-                {{ abilityScores[name].base }}
-            </div>
+            <button @click="abilityScoreStore.rollAbility(name)" class="">
+                <div class="ability_number">
+                    {{ abilityScores[name].base }}
+                </div>
+            </button>
         </div>
     </div>
 
@@ -111,6 +116,10 @@ console.log(scoreNames);
     justify-content: space-between;
     flex-grow: 1;
     /* Make all subsections expand evenly */
+}
+
+.ability_subsection button {
+    width: 100%;
 }
 
 .ability-label {

@@ -147,6 +147,15 @@ export const createRelay = async ({
 }) => {
   // @ts-ignore
   const dispatch = await (devMode ? devRelay() : initRelay(relayConfig));
+  console.log('Dispatch initialized:', dispatch);
+  dispatchRef.value = dispatch;
+
+  if (!dispatch || typeof dispatch.roll !== 'function') {
+    console.error('Dispatch object is invalid or missing the roll method.');
+  } else {
+    console.log('Dispatch object is valid and ready to use.');
+  }
+  
   const relayPinia = (context: PiniaPluginContext) => {
     if (context.store.$id !== primaryStore) return;
     const store = context.store;

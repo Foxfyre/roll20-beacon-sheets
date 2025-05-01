@@ -12,7 +12,7 @@ export default async (
   customDispatch?: Dispatch,
 ): Promise<RollResults> => {
   const dispatch = customDispatch || (dispatchRef.value as Dispatch); // Need a different Relay instance when handling sheet-actions
-
+  console.log(`Rolling components:`, components);
   const rolls: any = {};
   for (const i in components) {
     const component = components[i];
@@ -22,9 +22,13 @@ export default async (
       rolls[`dice-${i}`] = `${dieCount}d${sides}`;
     }
   }
-
+  console.log(rolls);
+  if (!dispatch || typeof dispatch.roll !== 'function') {
+    console.error('Dispatch object is not properly initialized:', dispatch);
+    throw new Error('Dispatch object is not properly initialized.');
+  }
   const rollResult = await dispatch.roll({ rolls });
-
+  console.log(`Roll result:`, rollResult);
   for (const rollTerm in rollResult.results) {
     const result = rollResult.results[rollTerm];
     const rollIndex = parseInt(rollTerm.split(`-`)[1]);

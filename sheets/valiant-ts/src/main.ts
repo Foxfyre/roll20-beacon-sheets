@@ -22,6 +22,8 @@ const main = async () => {
   const app = createApp(App);
   const { relayPinia, relayVue } = await createRelay({ devMode: isDevEnvironment });
 
+  console.log('Relay initialized successfully.');
+
   app.use(pinia);
   app.use(router);
   app.use(i18n);

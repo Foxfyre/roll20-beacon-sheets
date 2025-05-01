@@ -1,17 +1,19 @@
 import { defineStore } from 'pinia';
 import { ref, reactive, computed } from 'vue';
-//import rollToChat from '@/utility/rollToChat';
+import getRollResult from '@/utility/getRollResult';
+import rollToChat from '@/utility/rollToChat';
+import sendToChat from '@/utility/sendToChat';
 
 export type AbilityScoresHydrate = {
     abilityScores: {
-        Strength: { base: number; current: number };
-        Fighting: { base: number; current: number };
-        Stamina: { base: number; current: number };
-        Intellect: { base: number; current: number };
-        Agility: { base: number; current: number };
-        Awareness: { base: number; current: number };
-        Dexterity: { base: number; current: number };
-        Presence: { base: number; current: number };
+        Strength: { base: number; mod: number; total: number };
+        Fighting: { base: number; mod: number; total: number };
+        Stamina: { base: number; mod: number; total: number };
+        Intellect: { base: number; mod: number; total: number };
+        Agility: { base: number; mod: number; total: number };
+        Awareness: { base: number; mod: number; total: number };
+        Dexterity: { base: number; mod: number; total: number };
+        Presence: { base: number; mod: number; total: number };
     }
 };
 
@@ -28,14 +30,14 @@ export const useAbilityScoreStore = defineStore('abilityScores', () => {
     const DexterityBase = ref(0);
     const PresenceBase = ref(0);
 
-    const StrengthCurrent = ref(0);
-    const FightingCurrent = ref(0);
-    const StaminaCurrent = ref(0);
-    const IntellectCurrent = ref(0);
-    const AgilityCurrent = ref(0);
-    const AwarenessCurrent = ref(0);
-    const DexterityCurrent = ref(0);
-    const PresenceCurrent = ref(0);
+    const StrengthMod = ref(0);
+    const FightingMod = ref(0);
+    const StaminaMod = ref(0);
+    const IntellectMod = ref(0);
+    const AgilityMod = ref(0);
+    const AwarenessMod = ref(0);
+    const DexterityMod = ref(0);
+    const PresenceMod = ref(0);
 
     const abilityShortCodes = {
         Strength: 'str',
@@ -62,15 +64,47 @@ export const useAbilityScoreStore = defineStore('abilityScores', () => {
     const abilityScores = computed({
         get() {
             return {
-                Strength: { base: StrengthBase.value, current: StrengthCurrent.value },
-                Fighting: { base: FightingBase.value, current: FightingCurrent.value },
-                Stamina: { base: StaminaBase.value, current: StaminaCurrent.value },
-                Intellect: { base: IntellectBase.value, current: IntellectCurrent.value },
-                Agility: { base: AgilityBase.value, current: AgilityCurrent.value },
-                Awareness: { base: AwarenessBase.value, current: AwarenessCurrent.value },
-                Dexterity: { base: DexterityBase.value, current: DexterityCurrent.value },
-                Presence: { base: PresenceBase.value, current: PresenceCurrent.value }
-            }
+                Strength: { 
+                    base: StrengthBase.value, 
+                    mod: StrengthMod.value, 
+                    total: StrengthBase.value + StrengthMod.value 
+                },
+                Fighting: { 
+                    base: FightingBase.value, 
+                    mod: FightingMod.value, 
+                    total: FightingBase.value + FightingMod.value 
+                },
+                Stamina: { 
+                    base: StaminaBase.value, 
+                    mod: StaminaMod.value, 
+                    total: StaminaBase.value + StaminaMod.value 
+                },
+                Intellect: { 
+                    base: IntellectBase.value, 
+                    mod: IntellectMod.value, 
+                    total: IntellectBase.value + IntellectMod.value 
+                },
+                Agility: { 
+                    base: AgilityBase.value, 
+                    mod: AgilityMod.value, 
+                    total: AgilityBase.value + AgilityMod.value 
+                },
+                Awareness: { 
+                    base: AwarenessBase.value, 
+                    mod: AwarenessMod.value, 
+                    total: AwarenessBase.value + AwarenessMod.value 
+                },
+                Dexterity: { 
+                    base: DexterityBase.value, 
+                    mod: DexterityMod.value, 
+                    total: DexterityBase.value + DexterityMod.value 
+                },
+                Presence: { 
+                    base: PresenceBase.value, 
+                    mod: PresenceMod.value, 
+                    total: PresenceBase.value + PresenceMod.value 
+                }
+            };
         },
         set(scores) {
             StrengthBase.value = scores.Strength.base ?? StrengthBase.value;
@@ -82,31 +116,86 @@ export const useAbilityScoreStore = defineStore('abilityScores', () => {
             DexterityBase.value = scores.Dexterity.base ?? DexterityBase.value;
             PresenceBase.value = scores.Presence.base ?? PresenceBase.value;
 
-            StrengthCurrent.value = scores.Strength.current ?? StrengthCurrent.value;
-            FightingCurrent.value = scores.Fighting.current ?? FightingCurrent.value;
-            StaminaCurrent.value = scores.Stamina.current ?? StaminaCurrent.value;
-            IntellectCurrent.value = scores.Intellect.current ?? IntellectCurrent.value;
-            AgilityCurrent.value = scores.Agility.current ?? AgilityCurrent.value;
-            AwarenessCurrent.value = scores.Awareness.current ?? AwarenessCurrent.value;
-            DexterityCurrent.value = scores.Dexterity.current ?? DexterityCurrent.value;
-            PresenceCurrent.value = scores.Presence.current ?? PresenceCurrent.value;
+            StrengthMod.value = scores.Strength.mod ?? StrengthMod.value;
+            FightingMod.value = scores.Fighting.mod ?? FightingMod.value;
+            StaminaMod.value = scores.Stamina.mod ?? StaminaMod.value;
+            IntellectMod.value = scores.Intellect.mod ?? IntellectMod.value;
+            AgilityMod.value = scores.Agility.mod ?? AgilityMod.value;
+            AwarenessMod.value = scores.Awareness.mod ?? AwarenessMod.value;
+            DexterityMod.value = scores.Dexterity.mod ?? DexterityMod.value;
+            PresenceMod.value = scores.Presence.mod ?? PresenceMod.value;
         }
     });
 
-    const dehydrate = () => {
-        // We save our entire object with the base/current scores.
-        return { abilityScores: abilityScores.value };
-      };
+    const rollAbility = async (name: AbilityScore) => {
 
-  // Hydrate determines how the store is updated when we receive updates from Firebase
-  const hydrate = (hydrateStore: AbilityScoresHydrate) => {
-    abilityScores.value = hydrateStore.abilityScores;
-  };
+        console.log(`Rolling ability score for: ${name}`);
+        console.log('Ability Scores:', abilityScores.value);
+
+        // Validate the ability name
+        if (!abilityScores.value[name]) {
+            console.error(`Invalid ability name: ${name}`);
+            return;
+        }
+
+        const ability = abilityScores.value[name];
+        console.log(`Ability object for ${name}:`, ability);
+
+        const baseScore = ability.base;
+        const modScore = ability.mod;
+        const totalScore = ability.total;
+
+        console.log(`Base score for ${name}: ${baseScore}`);
+        console.log(`Modifier score for ${name}: ${modScore}`);
+        console.log(`Total score for ${name}: ${totalScore}`);
+
+        const diceAmount = 1;
+        const diceSides = 20;
+
+        const components = [
+            { label: `Base Roll`, sides: diceSides, count: diceAmount, alwaysShowInBreakdown: true },
+            { label: 'Ability Score', value: Number(totalScore)}
+        ]
+
+        const { total: result } = await getRollResult([
+            { count: Number(diceAmount), sides: Number(diceSides) },
+            { label: `${name} Bonus`, value: totalScore },
+        ]);
+
+        //console.log(result);
+
+        await rollToChat({
+            title: `${name} Ability Check`,
+            subtitle: `Rolling ${name}`,
+            traits: ['Ability Check'],
+            allowHeroDie: false,
+            components,
+        });
+    }
+
+    const heroDiceFailure = async (title: string): Promise<void> => {
+        await sendToChat({
+            title,
+            subtitle: 'Failure!',
+            textContent: "Uh Oh! You've run out of Hero Dice!!",
+        });
+    };
+
+    const dehydrate = () => {
+        // We save our entire object with the base/mod/total scores.
+        return { abilityScores: abilityScores.value };
+    };
+
+    // Hydrate determines how the store is updated when we receive updates from Firebase
+    const hydrate = (hydrateStore: AbilityScoresHydrate) => {
+        abilityScores.value = hydrateStore.abilityScores;
+    };
 
     return {
         abilityScores,
         abilityShortCodes,
         abilityScoreTips,
+        rollAbility,
         dehydrate,
         hydrate
     };
