@@ -61,84 +61,78 @@ export const useAbilityScoreStore = defineStore('abilityScores', () => {
         Presence: 'Presence Checks'
     };
 
-    const abilityScores = computed({
-        get() {
-            return {
-                Strength: { 
-                    base: StrengthBase.value, 
-                    mod: StrengthMod.value, 
-                    total: StrengthBase.value + StrengthMod.value 
-                },
-                Fighting: { 
-                    base: FightingBase.value, 
-                    mod: FightingMod.value, 
-                    total: FightingBase.value + FightingMod.value 
-                },
-                Stamina: { 
-                    base: StaminaBase.value, 
-                    mod: StaminaMod.value, 
-                    total: StaminaBase.value + StaminaMod.value 
-                },
-                Intellect: { 
-                    base: IntellectBase.value, 
-                    mod: IntellectMod.value, 
-                    total: IntellectBase.value + IntellectMod.value 
-                },
-                Agility: { 
-                    base: AgilityBase.value, 
-                    mod: AgilityMod.value, 
-                    total: AgilityBase.value + AgilityMod.value 
-                },
-                Awareness: { 
-                    base: AwarenessBase.value, 
-                    mod: AwarenessMod.value, 
-                    total: AwarenessBase.value + AwarenessMod.value 
-                },
-                Dexterity: { 
-                    base: DexterityBase.value, 
-                    mod: DexterityMod.value, 
-                    total: DexterityBase.value + DexterityMod.value 
-                },
-                Presence: { 
-                    base: PresenceBase.value, 
-                    mod: PresenceMod.value, 
-                    total: PresenceBase.value + PresenceMod.value 
-                }
-            };
+    const abilityScores = reactive({
+        Strength: {
+          base: StrengthBase,
+          mod: StrengthMod,
+          get total() {
+            return Number(StrengthBase.value) + Number(StrengthMod.value);
+          }
         },
-        set(scores) {
-            StrengthBase.value = scores.Strength.base ?? StrengthBase.value;
-            FightingBase.value = scores.Fighting.base ?? FightingBase.value;
-            StaminaBase.value = scores.Stamina.base ?? StaminaBase.value;
-            IntellectBase.value = scores.Intellect.base ?? IntellectBase.value;
-            AgilityBase.value = scores.Agility.base ?? AgilityBase.value;
-            AwarenessBase.value = scores.Awareness.base ?? AwarenessBase.value;
-            DexterityBase.value = scores.Dexterity.base ?? DexterityBase.value;
-            PresenceBase.value = scores.Presence.base ?? PresenceBase.value;
-
-            StrengthMod.value = scores.Strength.mod ?? StrengthMod.value;
-            FightingMod.value = scores.Fighting.mod ?? FightingMod.value;
-            StaminaMod.value = scores.Stamina.mod ?? StaminaMod.value;
-            IntellectMod.value = scores.Intellect.mod ?? IntellectMod.value;
-            AgilityMod.value = scores.Agility.mod ?? AgilityMod.value;
-            AwarenessMod.value = scores.Awareness.mod ?? AwarenessMod.value;
-            DexterityMod.value = scores.Dexterity.mod ?? DexterityMod.value;
-            PresenceMod.value = scores.Presence.mod ?? PresenceMod.value;
-        }
-    });
+        Fighting: {
+          base: FightingBase,
+          mod: FightingMod,
+          get total() {
+            return Number(FightingBase.value) + Number(FightingMod.value);
+          }
+        },
+        Stamina: {
+          base: StaminaBase,
+          mod: StaminaMod,
+          get total() {
+            return Number(StaminaBase.value) + Number(StaminaMod.value);
+          }
+        },
+        Intellect: {
+          base: IntellectBase,
+          mod: IntellectMod,
+          get total() {
+            return Number(IntellectBase.value) + Number(IntellectMod.value);
+          }
+        },
+        Agility: {
+          base: AgilityBase,
+          mod: AgilityMod,
+          get total() {
+            return Number(AgilityBase.value) + Number(AgilityMod.value);
+          }
+        },
+        Awareness: {
+          base: AwarenessBase,
+          mod: AwarenessMod,
+          get total() {
+            return Number(AwarenessBase.value) + Number(AwarenessMod.value);
+          }
+        },
+        Dexterity: {
+          base: DexterityBase,
+          mod: DexterityMod,
+          get total() {
+            return Number(DexterityBase.value) + Number(DexterityMod.value);
+          }
+        },
+        Presence: {
+          base: PresenceBase,
+          mod: PresenceMod,
+          get total() {
+            return Number(PresenceBase.value) + Number(PresenceMod.value);
+          }
+        },
+      });
+      
 
     const rollAbility = async (name: AbilityScore) => {
 
         console.log(`Rolling ability score for: ${name}`);
-        console.log('Ability Scores:', abilityScores.value);
+        console.log('Ability Scores:', abilityScores[name]);
 
         // Validate the ability name
-        if (!abilityScores.value[name]) {
+        if (!abilityScores[name]) {
             console.error(`Invalid ability name: ${name}`);
             return;
         }
 
-        const ability = abilityScores.value[name];
+        const ability = abilityScores[name];
         console.log(`Ability object for ${name}:`, ability);
 
         const baseScore = ability.base;
@@ -182,14 +176,28 @@ export const useAbilityScoreStore = defineStore('abilityScores', () => {
     };
 
     const dehydrate = () => {
-        // We save our entire object with the base/mod/total scores.
-        return { abilityScores: abilityScores.value };
-    };
-
-    // Hydrate determines how the store is updated when we receive updates from Firebase
-    const hydrate = (hydrateStore: AbilityScoresHydrate) => {
-        abilityScores.value = hydrateStore.abilityScores;
-    };
+/*         const out: Record<string, { base: number; mod: number; total: number }> = {};
+      
+        for (const key in abilityScores) {
+          const k = key as keyof typeof abilityScores;
+          out[k] = {
+            base: abilityScores[k].base,
+            mod: abilityScores[k].mod,
+            total: abilityScores[k].total
+          };
+        }
+      
+        return { abilityScores: out }; */
+        return {abilityScores: abilityScores };
+      };
+      
+      const hydrate = (hydrateStore: AbilityScoresHydrate) => {
+        for (const key in hydrateStore.abilityScores) {
+          const k = key as keyof typeof abilityScores;
+          abilityScores[k].base = hydrateStore.abilityScores[k].base;
+          abilityScores[k].mod = hydrateStore.abilityScores[k].mod;
+        }
+      }; 
 
     return {
         abilityScores,

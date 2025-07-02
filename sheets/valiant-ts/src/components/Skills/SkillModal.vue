@@ -47,7 +47,6 @@ function calculateTotal(base, modifier) {
                 <div class="card_title">
                     <span>Skills</span>
                 </div>
-
                 <div class="ability_edit">
                     <skillModal :show="isModalVisible" @close="toggleModal">
                         <h2>Popup Title</h2>
@@ -55,30 +54,27 @@ function calculateTotal(base, modifier) {
                     </skillModal>
                 </div>
             </div>
-
-            <!-- Subheader -->
-            <div class="skill_subheader">
-                <div class="subheader_item">Skill Name</div>
-                <div class="subheader_item">Ability Modifier</div>
-                <div class="subheader_item">Ability Rank</div>
-                <div class="subheader_item">Total Skill Rank</div>
-            </div>
-
-            <!-- Skills List -->
-            <div class="skill_section">
-
-                <div class="skill_row" v-for="name in Object.keys(skillScores)" :key="name" :score="name">
-                    <div class="skill_label">{{ skillScores[name].label }}</div>
-                    <div class="skill_modifier">{{ skillScores[name].shortAbility }} ({{
-                        abilityScores[getPropertyName(skillScores[name].shortAbility)]?.base || 0 }})</div>
-                    <div class="skill_rank">
-                        <input type="number" v-model.number="skillScores[name].base" />
-                    </div>
-                    <div class="total_skill_rank">
-                        {{ skillScores[name].current }}
+            <!-- Subheader and Skills List are now inside a scrollable container -->
+            <div class="modal-scrollable-content">
+                <div class="skill_subheader">
+                    <div class="subheader_item">Skill Name</div>
+                    <div class="subheader_item">Ability Modifier</div>
+                    <div class="subheader_item">Ability Rank</div>
+                    <div class="subheader_item">Total Skill Rank</div>
+                </div>
+                <div class="skill_section">
+                    <div class="skill_row" v-for="name in Object.keys(skillScores)" :key="name" :score="name">
+                        <div class="skill_label">{{ skillScores[name].label }}</div>
+                        <div class="skill_modifier">{{ skillScores[name].shortAbility }} ({{
+                            abilityScores[getPropertyName(skillScores[name].shortAbility)]?.base || 0 }})</div>
+                        <div class="skill_rank">
+                            <input type="number" v-model.number="skillScores[name].base" />
+                        </div>
+                        <div class="total_skill_rank">
+                            {{ skillScores[name].current }}
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -92,12 +88,10 @@ function calculateTotal(base, modifier) {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent background */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    /* Ensure it's above other content */
 }
 
 .modal-content {
@@ -108,12 +102,26 @@ function calculateTotal(base, modifier) {
     position: relative;
     max-width: 500px;
     width: 100%;
+    height: 500px; /* Fixed height */
+    min-height: 300px;
+    max-height: 80vh;
+    resize: both;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-scrollable-content {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    margin-top: 10px;
+    /* Optional: set a min-height if you want */
 }
 
 .close-button {
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: 5px;
     font-size: 1.5rem;
     background: none;
     border: none;
@@ -164,9 +172,10 @@ function calculateTotal(base, modifier) {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
-    height: 15px;
-    padding: 5px 0;
+    height: 20px;
+    padding: 0px 0 5px 0;
     border-bottom: 1px solid #ddd;
+    margin-bottom: 2px;
 }
 
 .skill_label {
@@ -187,7 +196,7 @@ function calculateTotal(base, modifier) {
 
 .skill_rank input {
     width: 40px;
-    height: 25px;
+    height: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
     text-align: center;

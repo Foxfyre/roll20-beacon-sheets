@@ -42,21 +42,45 @@ export default {
 
     <div class="powers_section">
         <div class="power_list">
-            <div class="power_item" v-for="power in powers" :key="power.id">
-                <div class="power-group-header">
-                    <div class="power_name">{{ power.name }}</div>
-                    <div class="power_cost">{{ power.cost }} PP</div>
-                </div>
-                <div class="power_effects">
-                    <div v-for="effect in power.effects" :key="effect.id" class="effect_item">
-                        <span class="effect_name">{{ effect.name }}</span>
-                        <span> -</span>
-                        <span class="effect_rank">Rank {{ effect.rank }}</span>
-                        <span> - </span>
-                        <span class="effect_details">{{ effect.details }}</span>
+            <template v-for="power in powers" :key="power.id">
+                <!-- Standalone Power -->
+                <div v-if="power.type === 'standalone'" class="power_item">
+                    <div class="power-group-header">
+                        <div class="power_name">{{ power.name }}</div>
+                        <div class="power_cost">{{ power.cost }} PP</div>
+                    </div>
+                    <div class="power_effects">
+                        <div v-for="effect in power.effects" :key="effect.id" class="effect_item">
+                            <span class="effect_name">{{ effect.name }}</span>
+                            <span> -</span>
+                            <span class="effect_rank">Rank {{ effect.rank }}</span>
+                            <span> - </span>
+                            <span class="effect_details">{{ effect.details }}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <!-- Power Array -->
+                <div v-else-if="power.type === 'array'" class="power_item">
+                    <div class="power-group-header">
+                        <div class="power_name">{{ power.name }}</div>
+                        <div class="power_cost">{{ power.totalCost }} PP</div>
+                    </div>
+                    <div class="power_effects">
+                        <div v-for="child in power.powers" :key="child.id" class="effect_item">
+                            <div class="power_name">{{ child.name }}</div>
+                            <div class="power_effects">
+                                <div v-for="effect in child.effects" :key="effect.id" class="effect_item">
+                                    <span class="effect_name">{{ effect.name }}</span>
+                                    <span> -</span>
+                                    <span class="effect_rank">Rank {{ effect.rank }}</span>
+                                    <span> - </span>
+                                    <span class="effect_details">{{ effect.details }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
         </div>
     </div>
 </template>

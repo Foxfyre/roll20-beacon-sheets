@@ -26,6 +26,7 @@ import { useSkillStore } from '@/stores/skillStore';
 import { useAbilityScoreStore } from '@/stores/abilityScoreStore';
 import { computed } from 'vue';
 const sheet = useSheetStore();
+const skillScoreStore = useSkillStore();
 const abilityScores = useAbilityScoreStore().abilityScores;
 const skills = useSkillStore().skills;
 console.log(useSkillStore().skills);
@@ -52,11 +53,13 @@ const scoreNames = computed(() => Object.keys(skills).filter(name => !skills[nam
             <div class="skill_header_bonus">Bonus</div>
         </div>
         <div class="subsection" v-for="name in scoreNames" :key="name" :score="name">
-            <div class="skill_label">{{ skills[name].label }}</div>
-            <div class="skill_modifier">{{ skills[name].base }}</div>
-            <div class="skill_number">{{ skills[name].current }}</div>
+            <button @click="skillScoreStore.rollSkill(name)" class="skill-button">
+                <div class="skill_label">{{ skills[name].label }}</div>
+                <div class="skill_modifier">{{ skills[name].base }}</div>
+                <div class="skill_number">{{ skills[name].current }}</div>
+            </button>
         </div>
-    </div> 
+    </div>
 
 </template>
 
@@ -132,7 +135,7 @@ const scoreNames = computed(() => Object.keys(skills).filter(name => !skills[nam
     width: 20%;
 }
 
-.subsection {
+.subsection, .skill-button {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;

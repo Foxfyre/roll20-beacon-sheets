@@ -48,17 +48,18 @@ console.log(scoreNames);
         </div>
     </div>
     <div class="ability_section">
-        <div class="ability_subsection" v-for="name in Object.keys(abilityScores)" :key="name">
+        <div class="ability_subsection" v-for="name in scoreNames" :key="name" :score="name">
             <div class="ability-label" :data-title="name" :data-desc="abilityTips[name]">
                 <span>{{ abilityShortNames[name] }}</span>
             </div>
-            <button @click="abilityScoreStore.rollAbility(name)" class="">
+            <button @click="console.log(abilityScores[name]); abilityScoreStore.rollAbility(name)" class="">
                 <div class="ability_number">
                     {{ abilityScores[name].base }}
                 </div>
             </button>
+
         </div>
-    </div>
+    </div> 
 
 </template>
 

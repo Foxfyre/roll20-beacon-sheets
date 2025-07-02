@@ -4,5 +4,8 @@
   "compilerOptions": {
     "types": ["node"],
     "target": "ES2022",
+    "preserveValueImports": false,
+    "importsNotUsedAsValues": "remove",
+    "verbatimModuleSyntax": true,
   }
 }
